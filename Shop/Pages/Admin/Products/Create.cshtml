@@ -1,0 +1,77 @@
+﻿@model Shop.Data.Tables.Product
+@using Shop.Enums 
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Product</h4>
+<hr />
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 col-md-10">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Add Product</h4>
+                    </div>
+                    <div class="content">
+                        <form asp-action="Create" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="Name">Product Name:</label>
+                                        <input asp-for="Name" class="form-control border-input" placeholder="Macbook pro">
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="Price">Product Price:</label>
+                                        <input asp-for="Price" class="form-control border-input" placeholder="$2500">
+                                        <span asp-validation-for="Price" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Quantity"> Product Quantity: </label>
+                                        <input asp-for="Quantity" class="form-control border-input" placeholder="10" />
+                                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Status"> Product Quantity: </label>
+                                        @*<input asp-for="Status" class="form-control border-input" placeholder="10" />*@
+                                        <select asp-for="Status" class="form-control border-input"
+                                                asp-items="Html.GetEnumSelectList<Status>()">
+                                            <option>.....</option>
+                                        </select>
+                                        <span asp-validation-for="Status" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Description">Product Description:</label>
+                                        <textarea asp-for="Description" id="" cols="30" rows="10"
+                                                  class="form-control border-input" placeholder="Product Description"></textarea>
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="Image">Product Image:</label>
+                                        <input asp-for="Image" type="file" class="form-control border-input">
+                                        <span asp-validation-for="Image" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="">
+                                <input type="submit" value="Add Product" class="btn btn-info btn-fill btn-wd">
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+

@@ -1,0 +1,182 @@
+﻿@model Shop.Data.Tables.Order
+@using Shop.Enums 
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Order</h4>
+<hr />
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 col-md-10">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Edit Order</h4>
+                    </div>
+                    <div class="content">
+                        <form asp-action="Edit">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id" />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="UserId">User Name:</label>
+                                        <select asp-for="UserId" class="form-control border-input" asp-items="ViewBag.UserId" >
+                                            </select>
+                                        <span asp-validation-for="UserId" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="ProductId">Product</label>
+                                        <select asp-for="ProductId" class="form-control border-input" asp-items="ViewBag.ProductId">
+                                            </select>
+                                        <span asp-validation-for="ProductId" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Amount">Amount </label>
+                                        <input asp-for="Amount" class="form-control border-input" />
+                                        
+                                        <span asp-validation-for="Amount" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Purchase">Purchase </label>
+                                        <select asp-for="Purchase" class="form-control border-input"
+                                                asp-items="Html.GetEnumSelectList<Purchase>()">
+                                            </select>
+                                        
+                                        <span asp-validation-for="Purchase" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Status"> Product Quantity: </label>
+                                        @*<input asp-for="Status" class="form-control border-input" placeholder="10" />*@
+                                        <select asp-for="Status" class="form-control border-input"
+                                                asp-items="Html.GetEnumSelectList<Status>()">
+                                        </select>
+                                        <span asp-validation-for="Status" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="">
+                                <input type="submit" value="Save" class="btn btn-info btn-fill btn-wd">
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 col-md-10">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Add Product</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id" />
+                                <div class="form-group">
+                                    <label asp-for="UserId" class="control-label"></label>
+                                    <select asp-for="UserId" class="form-control border-input" asp-items="ViewBag.UserId"></select>
+                                    <span asp-validation-for="UserId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ProductId" class="control-label"></label>
+                                    <select asp-for="ProductId" class="form-control border-input" asp-items="ViewBag.ProductId"></select>
+                                    <span asp-validation-for="ProductId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Status" class="control-label"></label>
+                                    <select asp-for="Status" class="form-control border-input"></select>
+                                    <span asp-validation-for="Status" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Amount" class="control-label"></label>
+                                    <input asp-for="Amount" class="form-control border-input" />
+                                    <span asp-validation-for="Amount" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Purchase" class="control-label"></label>
+                                    <select asp-for="Purchase" class="form-control border-input"></select>
+                                    <span asp-validation-for="Purchase" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Save" class="btn btn-default" />
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+@*<div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-10 col-md-10">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">Add Product</h4>
+                        </div>
+                        <div class="content">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Product Name:</label>
+                                            <input type="text" class="form-control border-input" placeholder="Macbook pro">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Product Price:</label>
+                                            <input type="text" class="form-control border-input" placeholder="$2500">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Product Description:</label>
+                                            <textarea name="" id="" cols="30" rows="10"
+                                                      class="form-control border-input" placeholder="Product Description"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Product Image:</label>
+                                            <input type="file" class="form-control border-input">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="">
+                                    <button type="submit" class="btn btn-info btn-fill btn-wd">Add Product</button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> *@
