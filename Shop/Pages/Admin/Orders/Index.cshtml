@@ -5,59 +5,7 @@
 }
 
 <h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Purchase)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Purchase)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>*@
-
+ 
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -114,11 +62,10 @@
                                         </td>
                                         <td>
                                             <a class="btn btn-sm btn-success ti-close"
-                                               asp-action="Edit" asp-route-id="@item.Id">Cancel Order</a> |
+                                               asp-action="Edit" asp-route-id="@item.Id">Edit Order</a> |
                                             <a class="btn btn-sm btn-primary ti-view-list-alt"
                                                asp-action="Details" asp-route-id="@item.Id">Details</a> 
-                                            @*<a class="btn btn-sm btn-danger ti-close" 
-                                               asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                                            
                                             
                                         </td>
                                     </tr>

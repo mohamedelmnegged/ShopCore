@@ -47,31 +47,31 @@ namespace Shop.Controllers.Admin
             return View("../Admin/Orders/Details", order);
         }
 
-        // GET: Orders/Create
-        public IActionResult Create()
-        {
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
-            return View("../Admin/Orders/Create");
-        }
+        //// GET: Orders/Create
+        //public IActionResult Create()
+        //{
+        //    ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
+        //    ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+        //    return View("../Admin/Orders/Create");
+        //}
 
-        // POST: Orders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,ProductId,Status,Amount,Purchase")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", order.ProductId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", order.UserId);
-            return View("../Admin/Orders/Create",order);
-        }
+        //// POST: Orders/Create
+        //// To protect from overposting attacks, enable the specific properties you want to bind to.
+        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("Id,UserId,ProductId,Status,Amount,Purchase")] Order order)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(order);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", order.ProductId);
+        //    ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", order.UserId);
+        //    return View("../Admin/Orders/Create",order);
+        //}
 
         // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
