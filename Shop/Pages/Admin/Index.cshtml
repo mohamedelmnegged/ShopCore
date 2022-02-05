@@ -103,7 +103,7 @@
                             <div class="col-xs-7">
                                 <div class="numbers">
                                     <p>Users</p>
-                                    @context.Users.Count()
+                                    @context.Users.Where(a => a.Status == Shop.Enums.Status.worked).Count()
                                 </div>
                             </div>
                         </div>

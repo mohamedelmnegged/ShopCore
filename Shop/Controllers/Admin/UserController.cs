@@ -32,29 +32,34 @@ namespace Shop.Controllers.Admin
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(IFormCollection collections)
+        public async Task<ActionResult> Login( [Bind("Email,Password")] UserModel model)
         { 
             //admin@gmail.com 
             //Med@2000
             try
             {
-                //if (ModelState.IsValid)
-                //{
-                //    var user = new IdentityUser
-                //    {
-                //        UserName = model.Name,
-                //        Email = model.Email
-                //    };
-                //    var add = await userManager.CreateAsync(user, model.Password);
-                //    if (add.Succeeded)
-                //    {
-                //        user = await userManager.FindByEmailAsync(model.Email);
-                //        var sign = await userManager.AddToRoleAsync(user, "Admin");
-                //        await signInManager.SignInAsync(user, isPersistent: false);
-                //        return View("../Admin/Index");
-                //    }
-                //}
-                return RedirectToAction(nameof(Login));
+                if (ModelState.IsValid)
+                {
+                    var find = await userManager.FindByEmailAsync(model.Email);
+                    
+                    if (find != null)
+                    {
+                        if (await userManager.CheckPasswordAsync(find, model.Password))
+                        {
+                            var check = await userManager.IsInRoleAsync(find, "Admin");
+                            if (check)
+                            {
+                                await signInManager.SignInAsync(find, isPersistent: false);
+                                return View("../Admin/Index");
+                            }
+
+                            ModelState.AddModelError("role", "the user is not an admin");
+                            return View("../Admin/User/Login");
+                        }
+                    }
+                }
+                ModelState.AddModelError("exist", "The User Not found");
+                return RedirectToAction(nameof(Login), model);
             }
             catch
             {
@@ -91,7 +96,7 @@ namespace Shop.Controllers.Admin
                         return View("../Admin/Index");
                     }
                 }
-                return RedirectToAction(nameof(Signup));
+                return View("../Admin/User/Signup", model);// RedirectToAction(nameof(Signup));
             }
             catch
             {
@@ -99,10 +104,10 @@ namespace Shop.Controllers.Admin
             }
         }
 
-        // GET: UserController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Logout()
         {
-            return View();
+            await signInManager.SignOutAsync();
+            return RedirectToAction(nameof(Login)); 
         }
 
         // POST: UserController/Delete/5

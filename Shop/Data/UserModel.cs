@@ -8,14 +8,15 @@ namespace Shop.Data
 {
     public class UserModel
     {
-        [Required]
+        
         [Display(Name = "User Name")]
         public string Name { get; set; }
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Password is Required")]
         [Display(Name = "Password")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
     }
 }

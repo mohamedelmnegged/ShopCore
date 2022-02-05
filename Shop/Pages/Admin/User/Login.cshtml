@@ -1,5 +1,5 @@
-﻿@page
-@model Shop.Pages.Admin.User.LoginModel
+﻿
+@model Shop.Data.UserModel
 @{
     Layout = null;
 }
@@ -49,19 +49,20 @@
                         </div>
 
                         <div class="panel-body">
-
+                            <span>  @ViewBag.exist </span>
+                            <span>  @ViewBag.role </span>
                             <form asp-area="admin" asp-controller="user" asp-action="login">
-
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="form-group">
-                                    <label for="email">Email:</label>
-                                    <input type="email" name="email" id="email" placeholder="Email"
-                                           class="form-control border-input">
+                                    <label asp-for="Email">Email:</label>
+                                    <input asp-for="Email" id="email"  placeholder="Email"class="form-control border-input">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="password">Password:</label>
-                                    <input type="password" name="password" id="password" placeholder="Password"
-                                           class="form-control border-input">
+                                    <label asp-for="Password">Password:</label>
+                                    <input asp-for="Password" id="password" placeholder="Password" class="form-control border-input">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-group">

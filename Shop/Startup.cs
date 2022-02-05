@@ -85,8 +85,10 @@ namespace Shop
             services.AddScoped<ProductModel>(); 
             services.AddScoped<OrderModel>();
             //services.AddIdentity<IdentityUser, IdentityRole>()
-              //  .AddEntityFrameworkStores<ApplicationDbContext>(); 
+            //  .AddEntityFrameworkStores<ApplicationDbContext>(); 
 
+            //change redirect routes when login in 
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/Admin/User/Login");
 
 
         }
