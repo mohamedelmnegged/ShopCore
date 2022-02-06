@@ -3,7 +3,7 @@
 @inject Shop.Models.ProductModel products 
 @inject Shop.Models.OrderModel orders 
 @inject Shop.Data.ApplicationDbContext context
-
+@inject Microsoft.AspNetCore.Identity.UserManager<IdentityUser> userManager
 @{ 
     ViewBag.Title = "Dashboard";
 }
@@ -101,10 +101,13 @@
                                 </div>
                             </div>
                             <div class="col-xs-7">
-                                <div class="numbers">
-                                    <p>Users</p>
-                                    @context.Users.Where(a => a.Status == Shop.Enums.Status.worked).Count()
+                                <div class="numbers"> 
+                                    <a asp-area="admin" asp-controller="user" asp-action="index">
+                                        <p>Users</p>
+                                        @userManager.Users.Count()
+                                    </a>
                                 </div>
+
                             </div>
                         </div>
                         <div class="footer">
