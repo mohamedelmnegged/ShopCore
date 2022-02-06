@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Data;
+using Shop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,28 @@ namespace Shop.Controllers.Admin
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly ApplicationDbContext context;
 
         public UserController(UserManager<IdentityUser> userManager, 
-            SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
+            SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager,
+            ApplicationDbContext context)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.roleManager = roleManager;
+            this.context = context;
+        } 
+        public async Task<ActionResult> Index()
+        {
+            List<UserView> model = new List<UserView>(); 
+            var users = userManager.Users; 
+            foreach(var user in users)
+            {
+                var role = await userManager.GetRolesAsync(user);
+                var m = new UserView { Email = user.Email, Name = user.UserName, Role = role.FirstOrDefault() };
+                model.Add(m);
+            }
+            return View("../Admin/User/Index", model);
         }
         // GET: UserController
         public ActionResult Login()
@@ -109,14 +125,37 @@ namespace Shop.Controllers.Admin
             await signInManager.SignOutAsync();
             return RedirectToAction(nameof(Login)); 
         }
-
-        // POST: UserController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [HttpGet]
+        public async Task<ActionResult> Delete(string Name)
         {
             try
             {
+                var user = await userManager.FindByNameAsync(Name);
+                if (user != null)
+                {
+                    var model = new UserView { Email = user.Email, Name = user.UserName };
+                    return View("../Admin/User/Delete", model);
+                }
+                return NotFound();
+            }
+            catch
+            {
+                return View();  
+            }
+             
+        }
+        // POST: UserController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete([Bind("Name,Email,Role")] UserView model)
+        {
+            try
+            {
+                var check = await userManager.FindByNameAsync(model.Name);
+                if(check != null)
+                {
+                   await userManager.DeleteAsync(check);
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -1,0 +1,54 @@
+﻿
+@model IEnumerable<Shop.Models.UserView>//<Microsoft.AspNetCore.Identity.IdentityUser>//<Shop.Data.Tables.User>
+@{ 
+    ViewData["Title"] = "Users";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Users</h4>
+                        <p class="category">List of all registered users</p>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody> 
+                                @foreach(var item in Model) {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Role</td>
+                                    @*<td><span class="label label-success">@item.Status</span></td>*@
+                                    <td>
+                                        <a asp-area="admin" asp-controller="user" asp-action="delete"
+                                           asp-route-name ="@item.Name" 
+                                           class="btn btn-sm btn-success ti-close" title="Block User"></a>
+
+                                        <button class="btn btn-sm btn-primary ti-view-list-alt"
+                                                title="Details"></button>
+                                    </td>
+                                </tr>
+                                }
+
+                                
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
