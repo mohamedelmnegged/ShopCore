@@ -31,7 +31,7 @@ namespace Shop.Controllers.Admin
         } 
         public async Task<ActionResult> Index()
         {
-            List<UserView> model = new List<UserView>(); 
+            List<UserView> model = new (); 
             var users = userManager.Users; 
             foreach(var user in users)
             {
@@ -51,7 +51,9 @@ namespace Shop.Controllers.Admin
         public async Task<ActionResult> Login( [Bind("Email,Password")] UserModel model)
         { 
             //admin@gmail.com 
-            //Med@2000
+            //Med@2000 
+            //mohamed@gmail.com
+            //123456
             try
             {
                 if (ModelState.IsValid)
@@ -70,7 +72,7 @@ namespace Shop.Controllers.Admin
                             }
 
                             ModelState.AddModelError("role", "the user is not an admin");
-                            return View("../Admin/User/Login");
+                            return View("../Admin/User/Login", model);
                         }
                     }
                 }
@@ -79,7 +81,7 @@ namespace Shop.Controllers.Admin
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Login), model);
             }
         }
         public ActionResult Signup()
@@ -167,7 +169,7 @@ namespace Shop.Controllers.Admin
         public async Task<ActionResult> CreateRole()
         {
             string[] roleNames = new string[] { "Admin", "Manager", "User" };
-            List<string> result = new List<string>();
+            List<string> result = new();
             foreach (string name in roleNames)
             {
                 var role = new IdentityRole { Name = name };

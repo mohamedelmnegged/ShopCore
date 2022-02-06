@@ -13,13 +13,9 @@ namespace Shop.Controllers.Admin
     [Authorize(Roles = "Admin")]
     public class DashboardController : Controller
     {
-        private readonly ProductModel product;
-        private readonly RoleManager<IdentityRole> roleManager;
-
-        public DashboardController(ProductModel product, RoleManager<IdentityRole> roleManager)
+        
+        public DashboardController()
         {
-            this.product = product;
-            this.roleManager = roleManager;
         }
         public IActionResult Index()
         {

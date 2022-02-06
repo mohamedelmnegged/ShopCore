@@ -39,7 +39,7 @@
                                         <span asp-validation-for="Quantity" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
-                                        <label asp-for="Status"> Product Quantity: </label>
+                                        <label asp-for="Status"> Product Status: </label>
                                         @*<input asp-for="Status" class="form-control border-input" placeholder="10" />*@
                                         <select asp-for="Status" class="form-control border-input"
                                                 asp-items="Html.GetEnumSelectList<Status>()">
