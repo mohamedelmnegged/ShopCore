@@ -15,13 +15,13 @@ namespace Shop.Controllers.Admin
     [AllowAnonymous]
     public class UserController : Controller
     {
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<Data.Tables.User> userManager;
+        private readonly SignInManager<Data.Tables.User> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly ApplicationDbContext context;
 
-        public UserController(UserManager<IdentityUser> userManager, 
-            SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager,
+        public UserController(UserManager<Data.Tables.User> userManager, 
+            SignInManager<Data.Tables.User> signInManager, RoleManager<IdentityRole> roleManager,
             ApplicationDbContext context)
         {
             this.userManager = userManager;
@@ -100,7 +100,7 @@ namespace Shop.Controllers.Admin
             {
                 if (ModelState.IsValid)
                 {
-                    var user = new IdentityUser
+                    var user = new Data.Tables.User
                     {
                         UserName = model.Name,
                         Email = model.Email

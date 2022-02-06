@@ -173,3 +173,5 @@ F:\Programming\applying\c#\Asp.Net Core\Shop\Shop\obj\Debug\net5.0\Razor\Pages\A
 F:\Programming\applying\c#\Asp.Net Core\Shop\Shop\obj\Debug\net5.0\Razor\Pages\Admin\User\Signup.cshtml.g.cs
 F:\Programming\applying\c#\Asp.Net Core\Shop\Shop\obj\Debug\net5.0\Razor\Pages\Admin\User\Index.cshtml.g.cs
 F:\Programming\applying\c#\Asp.Net Core\Shop\Shop\obj\Debug\net5.0\Razor\Pages\Admin\User\Delete.cshtml.g.cs
+F:\Programming\applying\c#\Asp.Net Core\Shop\Shop\obj\Debug\net5.0\Razor\Pages\User\Login.cshtml.g.cs
+F:\Programming\applying\c#\Asp.Net Core\Shop\Shop\obj\Debug\net5.0\Razor\Pages\User\Signup.cshtml.g.cs

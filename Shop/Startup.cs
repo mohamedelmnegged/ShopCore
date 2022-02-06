@@ -32,7 +32,7 @@ namespace Shop
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddIdentity<IdentityUser, IdentityRole>(
+            services.AddIdentity<Data.Tables.User, IdentityRole>(
                 options => { 
                     options.SignIn.RequireConfirmedAccount = true;
                     options.Password.RequireUppercase = false;

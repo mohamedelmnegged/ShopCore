@@ -3,7 +3,7 @@
 @inject Shop.Models.ProductModel products 
 @inject Shop.Models.OrderModel orders 
 @inject Shop.Data.ApplicationDbContext context
-@inject Microsoft.AspNetCore.Identity.UserManager<IdentityUser> userManager
+@inject Microsoft.AspNetCore.Identity.UserManager<Shop.Data.Tables.User> userManager
 @{ 
     ViewBag.Title = "Dashboard";
 }
@@ -49,7 +49,7 @@
                                 <div class="numbers">
                                     <a asp-area="Admin" asp-controller="products" asp-action="index">
                                         <p>Products</p>
-                                        @context.Products.Where(a => a.Id > 0).Count()
+                                        @context.Products.Count()
                                     </a>
 
                                 </div>
@@ -77,7 +77,7 @@
                                 <div class="numbers"> 
                                     <a asp-area="Admin" asp-controller="orders" asp-action="index">
                                         <p>Orders</p>
-                                        @context.Orders.Where(a => a.Id > 0 ).Count()
+                                        @context.Orders.Count()
                                     </a>
                                 </div>
                             </div>
@@ -104,7 +104,7 @@
                                 <div class="numbers"> 
                                     <a asp-area="admin" asp-controller="user" asp-action="index">
                                         <p>Users</p>
-                                        @userManager.Users.Count()
+                                        @context.Users.Count()
                                     </a>
                                 </div>
 

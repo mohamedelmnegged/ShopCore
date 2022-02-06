@@ -1,0 +1,46 @@
+﻿@model Shop.Data.UserModel
+@{ 
+    ViewData["Title"] = "Sign Up";
+}
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-12" id="register">
+
+            <div class="card col-md-8">
+                <div class="card-body">
+                    <h2 class="card-title">Sign Up</h2>
+                    <hr>
+                    <form asp-area= "user" asp-controller="home" asp-action="Signup">
+
+                        <div class="form-group">
+                            <label asp-for="Email">Email:</label>
+                            <input asp-for="Email" placeholder="Email" id="email" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Password">Password:</label>
+                            <input asp-for="Password" placeholder="Password" id="password" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Name">Name:</label>
+                            <input asp-for="Name" placeholder="Name" id="Name" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-outline-info col-md-2"> Sign Up</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
