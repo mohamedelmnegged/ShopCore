@@ -16,6 +16,7 @@ namespace Shop.Data.Tables
         public Purchase Purchase { get; set; }
         public User User { get; set; }
         public Product Product { get; set; }
+        public IEnumerable<Cart> Carts { get; set; }
 
     }
 }

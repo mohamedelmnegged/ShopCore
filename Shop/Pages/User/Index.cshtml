@@ -33,7 +33,7 @@
             </div>
             <div class="card-footer">
                 <strong>$@item.Price</strong> &nbsp;
-                <a href="#" class="btn btn-primary btn-outline-dark">
+                <a asp-area="user" asp-controller="cart"  asp-action="add" asp-route-id="@item.Id" class="btn btn-primary btn-outline-dark">
                     <i class="fa fa-cart-plus "></i> Add To
                     Cart
                 </a>

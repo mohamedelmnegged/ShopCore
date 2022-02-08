@@ -1,4 +1,4 @@
-﻿
+﻿@inject Shop.Data.ApplicationDbContext context
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +34,17 @@
                     {
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="fa fa-shopping-cart"></i> Cart <strong>(23)</strong>
+                                <i class="fa fa-shopping-cart"></i> Cart 
+                                <strong> 
+                                    @context.Orders.Join(context.Carts, 
+                                    order => order.Id,
+                                    cart => cart.OrderId,
+                                    (order, cart) => new
+                                    {
+                                        order = order.Id
+                                    }
+                                    ).Count()
+                                </strong>
                             </a>
                         </li>
 
