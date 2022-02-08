@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -48,11 +49,15 @@ namespace Shop
             services.AddScoped<ProductModel>(); 
             services.AddScoped<OrderModel>();
             //services.AddIdentity<IdentityUser, IdentityRole>()
-            //  .AddEntityFrameworkStores<ApplicationDbContext>(); 
+            //  .AddEntityFrameworkStores<ApplicationDbContext>();  
 
+            
             //change redirect routes when login in 
-            services.ConfigureApplicationCookie(options => options.LoginPath = "/Admin/User/Login");
-
+            services.ConfigureApplicationCookie(options => {
+                options.LoginPath =  "/home/Index";
+                options.AccessDeniedPath = "/home/Index"; 
+                //options.ClaimsIssuer.
+            });
 
         }
 

@@ -10,6 +10,7 @@ namespace Shop.Data.Tables
     public class User : IdentityUser
     {
         public Status Status { get; set; } = Status.pinding;
+        public string Address { get; set; }
         public IEnumerable<Order> Orders { get; set; }
 
     }

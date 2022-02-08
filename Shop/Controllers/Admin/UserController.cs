@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Data;
 using Shop.Models;
+using Shop.ModelViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +49,7 @@ namespace Shop.Controllers.Admin
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login( [Bind("Email,Password")] UserModel model)
+        public async Task<ActionResult> Login( [Bind("Email,Password")] UserLogin model)
         { 
             //admin@gmail.com 
             //Med@2000 
@@ -77,7 +78,7 @@ namespace Shop.Controllers.Admin
                     }
                 }
                 ModelState.AddModelError("exist", "The User Not found");
-                return RedirectToAction(nameof(Login), model);
+                return View("../Admin/User/Login", model);
             }
             catch
             {
@@ -94,7 +95,7 @@ namespace Shop.Controllers.Admin
         // POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Signup([Bind("Email,Name,Password")] UserModel model)
+        public async Task<ActionResult> Signup([Bind("Email,Name,Password")] UserSignup model)
         {
             try
             {

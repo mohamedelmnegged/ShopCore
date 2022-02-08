@@ -1,57 +1,56 @@
 ﻿@model Shop.Data.UserModel
-@{ 
-    ViewData["Title"] = "Sign Up";
-}
+@{
+    ViewData["Title"] = "Edit User";
+} 
+
+
+<div> @ViewBag.error </div>
 
 <div class="container">
-
     <div class="row">
-
         <div class="col-md-12" id="register">
 
             <div class="card col-md-8">
                 <div class="card-body">
-                    <h2 class="card-title">Sign Up</h2>
+                    <h2 class="card-title">Edit @User.Identity.Name Profile</h2>
                     <hr>
-                    <form asp-area="user" asp-controller="home" asp-action="Signup">
+                    <form asp-area="user" asp-controller="home" asp-action="edit" > 
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input asp-for="Id" type="hidden" >
                         <div class="form-group">
-                            <label asp-for="Name"></label>
-                            <input asp-for="Name" placeholder="Name" id="Name" class="form-control">
+                            <label asp-for="Name">Name:</label>
+                            <input asp-for="Name" placeholder="Name" id="name" class="form-control">
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
-                            <label asp-for="Email"></label>
+                            <label asp-for="Email">Email:</label>
                             <input asp-for="Email" placeholder="Email" id="email" class="form-control">
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
-                        
+
                         <div class="form-group">
-                            <label asp-for="Phone"></label>
+                            <label asp-for="Phone">Phone:</label>
                             <input asp-for="Phone" placeholder="Phone" id="phone" class="form-control">
                             <span asp-validation-for="Phone" class="text-danger"></span>
                         </div>
-                        
                         <div class="form-group">
-                            <label asp-for="Address"></label>
-                            <input asp-for="Address" placeholder="Address" id="address" class="form-control">
-                            <span asp-validation-for="Address" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="Password"></label>
+                            <label asp-for="Password">Password:</label>
                             <input asp-for="Password" placeholder="Password" id="password" class="form-control">
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="ConfirmPassword"></label>
-                            <input asp-for="ConfirmPassword" placeholder="Confirm Password" id="password" class="form-control">
+                            <label asp-for="ConfirmPassword">Confirm Password:</label>
+                            <input asp-for="ConfirmPassword" placeholder="Confirm Password" id="confirmpassword" class="form-control">
                             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                         </div>
-
-
                         <div class="form-group">
-                            <button class="btn btn-outline-info col-md-2"> Sign Up</button>
+                            <label asp-for="Address">Address:</label>
+                            <input asp-for="Address" placeholder="Address" id="address" class="form-control">
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-outline-info col-md-2" type="submit" value="update">
                         </div>
 
                     </form>
@@ -62,5 +61,4 @@
         </div>
 
     </div>
-
 </div>
