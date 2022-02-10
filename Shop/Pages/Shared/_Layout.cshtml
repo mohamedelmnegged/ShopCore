@@ -33,17 +33,20 @@
                     @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
                     {
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-shopping-cart"></i> Cart 
-                                <strong> 
-                                    @context.Orders.Join(context.Carts, 
-                                    order => order.Id,
-                                    cart => cart.OrderId,
-                                    (order, cart) => new
-                                    {
-                                        order = order.Id
-                                    }
-                                    ).Count()
+                            <a class="nav-link" asp-area="User" asp-controller="cart" asp-action="index">
+                                <i class="fa fa-shopping-cart"></i> Cart
+                                <strong>
+                                    <span id="cartCount">
+                                        @context.Orders.Where(a => a.User.UserName == User.Identity.Name).Join(context.Carts,
+                                        order => order.Id,
+                                        cart => cart.OrderId,
+                                        (order, cart) => new
+                                        {
+                                            order = order.Id
+                                        }
+                                        ).Count()
+                                    </span>
+
                                 </strong>
                             </a>
                         </li>
@@ -100,7 +103,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="~/vendor/jquery/jquery.min.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+    <script src="~/js/site.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

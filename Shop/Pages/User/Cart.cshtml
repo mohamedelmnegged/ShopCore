@@ -1,0 +1,194 @@
+﻿@model IEnumerable<Shop.ModelViews.CartView>
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<div class="container">
+
+    <h2 class="mt-5"><i class="fa fa-shopping-cart"></i> Shooping Cart</h2>
+    <hr>
+
+    <h4 class="mt-5">@Model.Count() items(s) in Shopping Cart</h4>
+
+    <div class="cart-items">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <table class="table">
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td><img src="~/@item.Image" style="width: 5em"></td>
+                                <td>
+                                    <strong>@item.Name</strong><br> @item.Description
+                                </td>
+
+                                <td>
+
+                                    <a href="">Remove</a><br>
+                                    <a href="">Save for later</a>
+
+                                </td>
+
+                                <td>
+                                    <input type="number" min="1" name="amount" class="item-num" value="@item.Amount">
+                                </td>
+
+                                <td class="price-container">
+                                    <input type="hidden" id="priceHidden" value="@item.Price" />
+                                    <span>$</span><span class="price cart-item-price">@item.Price</span>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+            <!-- Price Details -->
+            <div class="col-md-6">
+                <div class="sub-total">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Price Details</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>Subtotal </td>
+                            <td id="subtotal">0</td>
+                        </tr>
+                        <tr>
+                            <td>Text</td>
+                            <td id="tax">1000</td>
+                        </tr>
+                        <tr>
+                            <th>Total</th>
+                            <th id="total">0</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- Save for later  -->
+            <div class="col-md-12">
+                <a class="btn btn-outline-dark" asp-area="user" asp-controller="home" asp-action="index">Continue Shopping</a>
+                <a class="btn btn-outline-info" onclick="CheckOutUpdateAmounts()">Proceed to checkout</a>
+                <hr>
+
+            </div>
+
+            <div class="col-md-12">
+
+                <h4>2 items Save for Later</h4>
+                <table class="table">
+
+                    <tbody>
+
+                        <tr>
+                            <td><img src="" style="width: 5em"></td>
+                            <td>
+                                <strong>Mac</strong><br> This is some text for the product
+                            </td>
+
+                            <td>
+
+                                <a href="">Remove</a><br>
+                                <a href="">Save for later</a>
+
+                            </td>
+
+                            <td>
+                                <input type="number" min="1" name="" class="item-num-later" value="1">
+                            </td>
+
+                            <td class="price-container">
+                                <span>$</span><span class="price">233</span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+@section Scripts {
+
+    <script> 
+        window.addEventListener("load", function () {
+            calcTotalAndSubtotla();
+            // to make changes on load 
+            for (let i = 0; i < inputs.length; i++) {
+                let priceContainer = inputs[i].parentElement.parentElement.querySelector(".price-container").querySelector(".price");
+                let price = inputs[i].parentElement.parentElement.querySelector(".price-container").querySelector("#priceHidden");
+                priceContainer.innerHTML = parseFloat(price.value) * inputs[i].value;
+                calcTotalAndSubtotla();
+            }
+        });
+
+        let inputs = document.querySelectorAll(".item-num");
+
+        function calcTotalAndSubtotla() {
+            //debugger;
+            let cartItemPrices = Array.from(document.querySelectorAll(".cart-item-price"));
+
+            let subTotal = document.querySelector("#subtotal");
+            let subTotalValue = parseInt(subTotal.innerHTML);
+
+            let total = document.querySelector("#total");
+            let totalValue = parseInt(subTotal.innerHTML);
+
+            let tax = document.querySelector("#tax");
+            let taxValue = parseInt(tax.innerHTML);
+
+            subTotalValue = 0;
+            totalValue = 0;
+
+            for (cartItemPrice in cartItemPrices) {
+                subTotalValue += parseInt(cartItemPrices[cartItemPrice].innerHTML);
+                subTotal.innerHTML = subTotalValue;
+                totalValue = subTotalValue + taxValue;
+                total.innerHTML = totalValue;
+            }
+        }
+
+        for (let i = 0; i < inputs.length; i++) {
+            let priceContainer = inputs[i].parentElement.parentElement.querySelector(".price-container").querySelector(".price");
+          //  let price = priceContainer.innerHTML;
+            let price = inputs[i].parentElement.parentElement.querySelector(".price-container").querySelector("#priceHidden");
+            inputs[i].addEventListener('change', function () {
+                priceContainer.innerHTML = parseFloat(price.value) * inputs[i].value;
+                calcTotalAndSubtotla();
+            })
+        }
+
+        function CheckOutUpdateAmounts() {
+            let inputs = document.querySelectorAll(".item-num");
+            let counter = Array();
+            for (let i = 0; i < inputs.length; i++) {
+                counter.push ( inputs[i].value);
+                //console.log(counter);
+            }
+            $.ajax({
+                url: "/Cart/UpdateCounter",
+                type: "POST",
+                data: '{counter:' + JSON.stringify(counter) + '}',
+                success: function (data) {
+                    console.log(data)
+                }
+            })
+        }
+    </script>
+
+
+}
