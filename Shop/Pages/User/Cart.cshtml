@@ -28,8 +28,11 @@
                                 </td>
 
                                 <td>
-
-                                    <a href="">Remove</a><br>
+                                    <form method="Post" asp-area="user" asp-controller="cart" asp-action="remove">
+                                        <input type="hidden" name="id" value="@item.OrderId" />
+                                        <input class="btn btn-outline-dark" type="submit" value="Remove" />
+                                    </form >
+                                    
                                     <a href="">Save for later</a>
 
                                 </td>
@@ -39,6 +42,7 @@
                                 </td>
 
                                 <td class="price-container">
+                                    <input type="hidden" id="orderId" value="@item.OrderId" />
                                     <input type="hidden" id="priceHidden" value="@item.Price" />
                                     <span>$</span><span class="price cart-item-price">@item.Price</span>
                                 </td>
@@ -174,20 +178,41 @@
 
         function CheckOutUpdateAmounts() {
             let inputs = document.querySelectorAll(".item-num");
-            let counter = Array();
+            var counter = Array();
             for (let i = 0; i < inputs.length; i++) {
-                counter.push ( inputs[i].value);
+                let item = Array(); 
+                let id = inputs[i].parentElement.parentElement.querySelector(".price-container").querySelector("#orderId").value;
+                item.push(parseInt(id));
+                item.push(parseInt(inputs[i].value));
+                counter.push(item);
                 //console.log(counter);
             }
+            console.log(counter);
+           // debugger;
             $.ajax({
                 url: "/Cart/UpdateCounter",
                 type: "POST",
-                data: '{counter:' + JSON.stringify(counter) + '}',
+              //  dataType: JSON,
+                data: { Counter: counter },
                 success: function (data) {
                     console.log(data)
                 }
             })
         }
+        //function RemoveOrder(id) {
+        //    $.ajax({
+        //        url: "/Cart/Remove/" + id,
+        //        type: "Post",
+        //        success: function (result) {
+        //            alert(result);
+        //            console.log(result);
+        //        },
+        //        error: function () {
+        //          //  alert('th');
+        //            console.log('Failed ');
+        //        }
+        //    })
+        //}
     </script>
 
 
