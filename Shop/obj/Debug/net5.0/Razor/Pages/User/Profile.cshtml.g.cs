@@ -19,8 +19,15 @@ using Microsoft.AspNetCore.Identity;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "F:\Programming\applying\c#\Asp.Net Core\Shop\Shop\Pages\_ViewImports.cshtml"
+using Shop.Controllers.User;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3d84b655309763192589052a0552d1303cdb7d5f", @"/Pages/User/Profile.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9846e5b383b44839024a0d203b0f48f76eb7f200", @"/Pages/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9798c50c03bdbe2b697dece11de4d655936eb701", @"/Pages/_ViewImports.cshtml")]
     public class Pages_User_Profile : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<Shop.Data.Tables.User>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-area", "user", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -152,7 +159,7 @@ using Microsoft.AspNetCore.Identity;
                                     <th> Action </th>
                                     <td>
                                         ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3d84b655309763192589052a0552d1303cdb7d5f7622", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3d84b655309763192589052a0552d1303cdb7d5f7808", async() => {
                 WriteLiteral("\r\n                                             Edit \r\n                                        ");
             }
             );

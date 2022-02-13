@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Shop.ModelViews.CartView>
+
+@{ 
+    Layout = null; 
+}
+
+<div class="col-md-12">
+
+    <h4> @Model.Count() items Save for Later</h4>
+    <table class="table">
+
+        <tbody>
+              @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><img src="~/@item.Image" style="width: 5em"></td>
+                        <td>
+                            <strong>@item.Name</strong><br> @item.Description
+                        </td>
+
+                        <td>
+
+                            <form method="Post" asp-area="user" asp-controller="cart" asp-action="remove">
+                                <input type="hidden" name="id" value="@item.OrderId" />
+                                <input class="btn btn-outline-dark" type="submit" value="Remove" />
+                            </form> 
+
+                            <form method="Post" asp-area="user" asp-controller="cart" asp-action="ReturnToBuy">
+                                <input type="hidden" name="id" value="@item.OrderId" />
+                                <input class="btn btn-outline-dark" type="submit" value="Return to Buy" />
+                            </form>
+
+                        </td>
+
+                        <td>
+                            <input asp-for="@item.Amount" min="1" name="" class="item-num-later" value="@item.Amount">
+                        </td>
+
+                        <td class="price-container">
+                            <span>$</span><span class="price">@item.Price</span>
+                        </td>
+                    </tr>
+
+                }
+        </tbody>
+
+    </table>
+
+</div>

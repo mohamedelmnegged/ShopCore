@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Shop.ModelViews.CartView>
+﻿@model IEnumerable<Shop.ModelViews.CartView> 
+@inject CartController savelater
 @{
     ViewData["Title"] = "Cart";
 }
@@ -31,9 +32,12 @@
                                     <form method="Post" asp-area="user" asp-controller="cart" asp-action="remove">
                                         <input type="hidden" name="id" value="@item.OrderId" />
                                         <input class="btn btn-outline-dark" type="submit" value="Remove" />
+                                    </form > 
+                                    <form method="Post" asp-area="user" asp-controller="cart" asp-action="SaveForLater">
+                                        <input type="hidden" name="id" value="@item.OrderId" />
+                                        <input class="btn btn-outline-dark" type="submit" value="Save for later" />
                                     </form >
                                     
-                                    <a href="">Save for later</a>
 
                                 </td>
 
@@ -85,41 +89,10 @@
                 <hr>
 
             </div>
+            
 
-            <div class="col-md-12">
+            @{await Html.RenderPartialAsync("../User/SaveLater", savelater.SaveLater()); }
 
-                <h4>2 items Save for Later</h4>
-                <table class="table">
-
-                    <tbody>
-
-                        <tr>
-                            <td><img src="" style="width: 5em"></td>
-                            <td>
-                                <strong>Mac</strong><br> This is some text for the product
-                            </td>
-
-                            <td>
-
-                                <a href="">Remove</a><br>
-                                <a href="">Save for later</a>
-
-                            </td>
-
-                            <td>
-                                <input type="number" min="1" name="" class="item-num-later" value="1">
-                            </td>
-
-                            <td class="price-container">
-                                <span>$</span><span class="price">233</span>
-                            </td>
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-            </div>
         </div>
 
 

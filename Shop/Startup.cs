@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shop.Controllers.User;
 using Shop.Data;
 using Shop.Models;
 using System;
@@ -29,9 +30,11 @@ namespace Shop
         // This method gets called by the runtime. Use this method to add services to the container.
         public  void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                options.EnableSensitiveDataLogging();
+
+            });
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddIdentity<Data.Tables.User, IdentityRole>(
                 options => { 
@@ -45,9 +48,13 @@ namespace Shop
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
 
+            services.AddScoped<HttpContextAccessor>();
+
             //conjection models 
             services.AddScoped<ProductModel>(); 
             services.AddScoped<OrderModel>();
+            services.AddScoped<CartController>(); 
+
             //services.AddIdentity<IdentityUser, IdentityRole>()
             //  .AddEntityFrameworkStores<ApplicationDbContext>();  
 

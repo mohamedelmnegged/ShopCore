@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Data;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.DirectoryServices.Protocols;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Shop.Controllers.User
@@ -19,11 +21,16 @@ namespace Shop.Controllers.User
     {
         private readonly UserManager<Data.Tables.User> userManager;
         private readonly ApplicationDbContext context;
+        private readonly SignInManager<Data.Tables.User> signInManager;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public CartController(UserManager<Data.Tables.User> userManager, ApplicationDbContext context)
+        public CartController(UserManager<Data.Tables.User> userManager, ApplicationDbContext context, 
+            SignInManager<Data.Tables.User> signInManager, IHttpContextAccessor httpContextAccessor)
         {
             this.userManager = userManager;
             this.context = context;
+            this.signInManager = signInManager;
+            this.httpContextAccessor = httpContextAccessor;
         }  
         public async Task<IActionResult> Index()
         {
@@ -128,5 +135,55 @@ namespace Shop.Controllers.User
 
             return RedirectToAction(nameof(Index)); 
         }
+        public async Task<IActionResult> ReturnToBuy([Bind("id")] int id)
+        {
+            //add to cart 
+            if (id != null)
+            {
+                var find = context.Carts.Where(a => a.OrderId == id).FirstOrDefault();
+                if (find == null)
+                {
+                    var add = new Cart { OrderId = id };
+                    await context.Carts.AddAsync(add);
+                    await context.SaveChangesAsync();
+                }
+            }
+
+            return RedirectToAction("index");
+        }
+        public async Task<IActionResult> SaveForLater([Bind("id")] int id)
+        {
+            //remove order from carts 
+            if(id != null)
+            {
+                var find = context.Carts.Where(a => a.OrderId == id).FirstOrDefault(); 
+                if(find != null)
+                {
+                    var remove = context.Carts.Remove(find);
+                    await context.SaveChangesAsync();
+                }
+            }
+
+            return RedirectToAction("index");
+        } 
+        public  IEnumerable<CartView> SaveLater()
+        {
+            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var model =  context.Orders.Where(a => a.UserId == userId)
+                .Where(a => !context.Carts.Select(s => s.OrderId).Contains(a.Id))
+                .Join(context.Products, order => order.ProductId, product => product.Id,
+                (order, product) => new CartView
+                {
+                    Name = product.Name,
+                    Amount = order.Amount,
+                    Description = product.Description,
+                    Image = product.Image,
+                    OrderId = order.Id,
+                    Price = product.Price
+                }).AsEnumerable();
+            return  model; 
+        } 
+
     }
 }
