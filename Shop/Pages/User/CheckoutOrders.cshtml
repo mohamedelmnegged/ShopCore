@@ -1,0 +1,52 @@
+﻿
+@model IEnumerable<Shop.ModelViews.CartView>
+@{ 
+    float total = 0;
+}
+
+<table class="table your-order-table">
+    <tr>
+        <th>Image</th>
+        <th>Details</th>
+        <th>Qty</th>
+    </tr>
+    @foreach (var item in Model)
+    { 
+       <input type="hidden" name="calc" value=@(total += item.Price * item.Amount)>
+        
+        <tr>
+            <td><img src="~/@item.Image" alt="" style="width: 4em"></td>
+            <td>
+                <strong>@item.Name</strong><br>
+                @item.Description <br>
+
+
+                <span class="text-dark">$@item.Price</span>
+            </td>
+            <td>
+                <span class="badge badge-light item-num">@item.Amount</span>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<hr>
+<table class="table your-order-table table-bordered">
+    <tr>
+        <th colspan="2">Price Details</th>
+    </tr>
+    <tr>
+        <td>Subtotal </td>
+        <td id="subtotal">@total</td>
+    </tr>
+    <tr>
+        <td>Text</td>
+        <td id="tax">1000</td>
+    </tr>
+    <tr>
+        <th>Total</th>
+        <th id="total">@(total + 1000)</th>
+    </tr>
+
+</table> 

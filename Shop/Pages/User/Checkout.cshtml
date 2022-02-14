@@ -1,0 +1,79 @@
+﻿@model Shop.Data.Tables.Checkout
+@inject CartController cart
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<!-- Page Content -->
+<div class="container">
+
+    <h2 class="mt-5"><i class="fa  fa-credit-card-alt"></i> Checkout</h2>
+    <hr>
+
+
+    <div class="row">
+
+        <div class="col-md-7">
+            <h4>Billing Details</h4>
+
+            <form asp-area="User" asp-controller="cart" asp-action="ProceedCheckout">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Email">Email</label>
+                        <input asp-for="Email" class="form-control" id="email" placeholder="Email">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Name">Name</label>
+                        <input asp-for="Name" class="form-control" id="name" placeholder="Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address">Address</label>
+                    <input asp-for="Address" class="form-control" id="address" placeholder="1234 Main St">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label asp-for="City">City</label>
+                        <input asp-for="City" class="form-control" id="city" placeholder="City">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="Provance">Provance</label>
+                        <input asp-for="Provance" class="form-control" id="provance" placeholder="Provance">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label asp-for="Postal">Postal</label>
+                        <input asp-for="Postal" class="form-control" id="postal" placeholder="Postal">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Phone">Phone</label>
+                    <input asp-for="Phone" class="form-control" id="phone" placeholder="Phone">
+                </div>
+                <hr>
+                <h5><i class="fa fa-credit-card"></i> Payment Details</h5>
+
+                <div class="form-group">
+                    <label asp-for="NameOnCard">Name on card</label>
+                    <input asp-for="NameOnCard" class="form-control" id="name_card" placeholder="Name on card">
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Card">Credit or debit card</label>
+                    <input asp-for="Card" class="form-control" id="card" placeholder="Credit or debit card">
+                </div>
+
+                <button type="submit" class="btn btn-outline-info col-md-12">Complete Order</button>
+            </form>
+
+        </div>
+
+        <div class="col-md-5">
+
+            <h4>Your Order</h4>
+
+            @{ await Html.RenderPartialAsync("../User/CheckoutOrders", cart.GetCartViews());}
+
+        </div>
+    </div>
+</div>
+<!-- /.container -->

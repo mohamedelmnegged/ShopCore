@@ -31,21 +31,29 @@ namespace Shop.Controllers.User
             this.context = context;
             this.signInManager = signInManager;
             this.httpContextAccessor = httpContextAccessor;
-        }  
+        }   
+        public IEnumerable<CartView> GetCartViews()
+        { 
+            
+            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var model = (from order in context.Orders.Where(a => a.UserId == userId)
+                         join cart in context.Carts on order.Id equals cart.OrderId
+                         join product in context.Products on order.ProductId equals product.Id
+                         select new CartView
+                         {
+                             Image = product.Image,
+                             Amount = order.Amount,
+                             Name = product.Name,
+                             Description = product.Description,
+                             Price = product.Price,
+                             OrderId = order.Id
+                         });
+            return model; 
+        }
         public async Task<IActionResult> Index()
         {
-          var model =   (from order in context.Orders.Where(a => a.User.UserName == User.Identity.Name)
-             join cart in context.Carts on order.Id equals cart.OrderId
-             join product in context.Products on order.ProductId equals product.Id
-             select new CartView
-             {
-                 Image = product.Image,
-                 Amount = order.Amount,
-                 Name = product.Name,
-                 Description = product.Description,
-                 Price = product.Price,
-                 OrderId = order.Id
-             });
+            var model = GetCartViews(); 
             return View("../User/Cart", model);
         }
 
@@ -64,9 +72,21 @@ namespace Shop.Controllers.User
                     context.Update(order);
                 }
             }
-            await context.SaveChangesAsync(); 
-            return Json(counter);
+            await context.SaveChangesAsync();
+            return Json(new { redirectToUrl = Url.Action("ProceedCheckout", "Cart") });
+        } 
+
+        public IActionResult ProceedCheckout()
+        {
+            return View("../User/Checkout");
+        } 
+
+        [HttpPost]
+        public async Task<IActionResult> ProceedCheckout([Bind("Email,Name,NameOnCard,Phone,Card,Address,City,Provance,Postal")] Checkout model)
+        {
+            return Json(model);
         }
+
         [HttpPost]
         public async Task<IActionResult> Add(int Id)
         {

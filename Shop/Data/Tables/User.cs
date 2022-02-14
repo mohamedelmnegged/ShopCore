@@ -12,6 +12,6 @@ namespace Shop.Data.Tables
         public Status Status { get; set; } = Status.pinding;
         public string Address { get; set; }
         public IEnumerable<Order> Orders { get; set; }
-
+        public IEnumerable<Checkout> Checkouts { get; set; }
     }
 }

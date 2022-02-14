@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.Data;
 
 namespace Shop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220214074748_update")]
+    partial class update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,50 +240,6 @@ namespace Shop.Data.Migrations
                     b.ToTable("Carts");
                 });
 
-            modelBuilder.Entity("Shop.Data.Tables.Checkout", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Card")
-                        .HasColumnType("int");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NameOnCard")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Phone")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Postal")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Provance")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Checkouts");
-                });
-
             modelBuilder.Entity("Shop.Data.Tables.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -419,15 +377,6 @@ namespace Shop.Data.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Shop.Data.Tables.Checkout", b =>
-                {
-                    b.HasOne("Shop.Data.Tables.User", "User")
-                        .WithMany("Checkouts")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Shop.Data.Tables.Order", b =>
                 {
                     b.HasOne("Shop.Data.Tables.Product", "Product")
@@ -457,8 +406,6 @@ namespace Shop.Data.Migrations
 
             modelBuilder.Entity("Shop.Data.Tables.User", b =>
                 {
-                    b.Navigation("Checkouts");
-
                     b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618

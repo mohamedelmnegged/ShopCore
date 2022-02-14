@@ -183,3 +183,5 @@ F:\Programming\applying\c#\Asp.Net Core\Shop\Shop\bin\Debug\net5.0\runtimes\linu
 F:\Programming\applying\c#\Asp.Net Core\Shop\Shop\bin\Debug\net5.0\runtimes\osx\lib\netcoreapp3.1\System.DirectoryServices.Protocols.dll
 F:\Programming\applying\c#\Asp.Net Core\Shop\Shop\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\System.DirectoryServices.Protocols.dll
 F:\Programming\applying\c#\Asp.Net Core\Shop\Shop\obj\Debug\net5.0\Razor\Pages\User\SaveLater.cshtml.g.cs
+F:\Programming\applying\c#\Asp.Net Core\Shop\Shop\obj\Debug\net5.0\Razor\Pages\User\Checkout.cshtml.g.cs
+F:\Programming\applying\c#\Asp.Net Core\Shop\Shop\obj\Debug\net5.0\Razor\Pages\User\CheckoutOrders.cshtml.g.cs

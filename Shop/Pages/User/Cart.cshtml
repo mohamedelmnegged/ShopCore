@@ -167,8 +167,9 @@
                 type: "POST",
               //  dataType: JSON,
                 data: { Counter: counter },
-                success: function (data) {
-                    console.log(data)
+                success: function (response) {
+                    window.location.href = response.redirectToUrl;
+                    console.log("Success");
                 }
             })
         }
