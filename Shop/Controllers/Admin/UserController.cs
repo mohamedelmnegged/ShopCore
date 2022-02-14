@@ -95,7 +95,7 @@ namespace Shop.Controllers.Admin
         // POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Signup([Bind("Email,Name,Password")] UserSignup model)
+        public async Task<ActionResult> Signup([Bind("Email,Name,Password")] AdminSignup model)
         {
             try
             {
